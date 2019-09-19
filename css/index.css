@@ -598,16 +598,16 @@ footer.is-mobile {
   margin-bottom: 1rem;
   background-color: #49b1f5;
   background-attachment: fixed;
-  background-position: right;
+  background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
 }
 #nav.no-bg {
-  background-image: url("../../img/sea-turtle.png") !important;
-  -webkit-background-size: 130%;
-  -moz-background-size: 130%;
-  background-size: 130%;
+  background-image: url("../../img/demo.png") !important;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  background-size: 100%;
 }
 #nav.is-mobile {
   background-attachment: local;
