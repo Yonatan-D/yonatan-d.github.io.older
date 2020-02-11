@@ -54,13 +54,13 @@
   };
 </script>
 
-  <meta name="keywords" content="Https">
+  <meta name="keywords" content="https">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Coding Pages申请SSL证书失败踩坑">
 <meta property="og:url" content="http://yonatan.cn/post/6f68870a/index.html">
 <meta property="og:site_name" content="Yonatan&#39;s Blog">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-04T15:50:29.292Z">
+<meta property="og:updated_time" content="2020-02-11T08:07:38.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Coding Pages申请SSL证书失败踩坑">
   <link rel="canonical" href="http://yonatan.cn/post/6f68870a/">
@@ -231,7 +231,7 @@
     <link itemprop="mainEntityOfPage" href="http://yonatan.cn/post/6f68870a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Yonatan">
+      <meta itemprop="name" content="yonatan">
       <meta itemprop="description" content="Later equals never">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -267,7 +267,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-04 23:50:29" itemprop="dateModified" datetime="2019-11-04T23:50:29+08:00">2019-11-04</time>
+                <time title="修改时间：2020-02-11 16:07:38" itemprop="dateModified" datetime="2020-02-11T16:07:38+08:00">2020-02-11</time>
               </span>
             
           
@@ -325,37 +325,59 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>起因：Hexo博客双线部署</p>
-<blockquote>
-<p>因为GFW的缘故，国内访问Github Pages有很高延迟，且据说Github Pages屏蔽百度爬取。因此我将Hexo多repository部署到Coding和Github，DNS设置分区解析，国内线路解析到Coding，国外线路解析到Github。（虽然国外没人看=。=）</p>
+        <h4 id="起因：Hexo博客双线部署"><a href="#起因：Hexo博客双线部署" class="headerlink" title="起因：Hexo博客双线部署"></a>起因：Hexo博客双线部署</h4><blockquote>
+<p>由于国内访问 <code>Github</code> 有很高延迟，且 <code>Github Pages</code> 屏蔽百度爬取。因此我把 <code>Hexo</code> 同时部署到 <code>Coding</code> 和 <code>Github</code>，在云服务器的 <code>DNS</code> 设置分区解析，国内线路解析到 <code>Coding</code>，国外线路解析到 <code>Github</code>（虽然国外没人看就是了）。</p>
 </blockquote>
 <a id="more"></a>
 
-<p>服务器解析完域名后，打开博客突然出现HSTS异常。找到Coding Pages的设置，发现Coding不像Github默认就是Https，需要在设置里手动申请SSL证书。</p>
-<p>那么，事不宜迟开始申请。快速地踩了两个坑：</p>
-<ol>
-<li><p>urn:acme:error:unauthorized: Invalid response from <a href="http://xxxxx.com/" target="_blank" rel="noopener">http://xxxxx.com/</a></p>
-<p>原因： 验证域名所有权时定位到 Github Pages 的服务器导致 SSL 证书申请失败</p>
-</li>
-</ol>
-<ol start="2">
-<li><p>urn:acme:error:dns: No valid IP addresses found for xxxxx.com</p>
-<p>原因： 海外线路没有解析到 Coding Pages的服务器。</p>
-</li>
-</ol>
-<p>PS：半小时才能申请1次是真的烦。</p>
-<p>总的来说，SSL 证书是通过 Let’s Encrypt API 申请。申请证书前需要验证域名，而 Let’s Encrypt 位于国外，所以需要保证 Let’s Encrypt 能通过您的域名正常访问到 Coding Pages 服务器以读取验证信息。</p>
-<p>####解决方法</p>
-<p>先把博客的分区域名解析停用，配置默认线路的解析到xxxxx.coding.me，完成申请SSL证书后启用原来的解析。</p>
-<p>原先博客用着Coding的，在双线部署前申请就没有上述问题了。</p>
-<p>其它情况参考官方帮助文档 -&gt; <a href="https://coding.net/help/faq/pages/coding-pages-faq.html" target="_blank" rel="noopener">Coding Pages 常见问题</a></p>
-<p>（帮助文档总结的很全，要养成看文档的习惯）</p>
+<br>
+
+<h4 id="1-问题"><a href="#1-问题" class="headerlink" title="1. 问题"></a>1. 问题</h4><p>在配置 <code>DNS</code> 后访问站点出现 <code>HSTS异常</code> 。原因是 <code>Coding</code> 不像 <code>Github</code> 默认就是 <code>https</code> 协议，但<code>Coding</code> 也在设置里提供了免费的 <code>SSL证书</code> 申请（Let’s Encrypt），那就用它吧。</p>
+<br>
+
+<h4 id="2-踩坑"><a href="#2-踩坑" class="headerlink" title="2. 踩坑"></a>2. 踩坑</h4><p>事不宜迟开始申请。快速地踩了两个坑（PS: 半小时才能申请1次是真的烦）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">错误信息：</span><br><span class="line">urn:acme:error:unauthorized: Invalid response from http://xxxxx.com/</span><br></pre></td></tr></table></figure>
+
+<p>问题原因： 验证域名所有权时定位到 <strong>Github Pages</strong> 的服务器导致 SSL 证书申请失败</p>
+<br>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">错误信息：</span><br><span class="line">urn:acme:error:dns: No valid IP addresses found for xxxxx.com</span><br></pre></td></tr></table></figure>
+
+<p>问题原因： 海外线路没有解析到 <strong>Coding Pages</strong> 的服务器。</p>
+<br>
+
+<p>总的来说，<code>SSL证书</code> 是通过 <code>Let’s Encrypt API</code> 申请。申请证书前需要验证域名，而 <code>Let’s Encrypt</code> 位于国外，所以需要保证 <code>Let’s Encrypt</code> 能通过您的域名正常访问到 <code>Coding Pages</code> 服务器以读取验证信息。</p>
+<br>
+
+<h4 id="3-解决方法"><a href="#3-解决方法" class="headerlink" title="3. 解决方法"></a>3. 解决方法</h4><p>先把分区域名解析停用，配置默认线路的解析到 <code>xxxxx.coding.me</code>，完成申请SSL证书后启用原来的解析。如果原先博客用着Coding的，在双线部署前申请就没有上述问题了。</p>
+<p>其它情况参考官方帮助文档  <strong>=&gt;</strong>  <a href="https://coding.net/help/faq/pages/coding-pages-faq.html" target="_blank" rel="noopener">Coding Pages 常见问题</a>，帮助文档总结的很全，要养成看文档的习惯。</p>
+<p>但是还有一个很严重的问题就是申请到的SSL证书仅有4个月使用期，过期后要重新申请，步骤也是如上所述，非常繁琐。</p>
+<p>说实话Coding现在不是很稳定，而且今年一月份暂停服务升级，导致我的博客上不去（文章修改于2020/2/11）。所以接下来我应该会把博客迁回我自己的服务器。</p>
+<br>
+
+<h4 id="4-谈谈我的"><a href="#4-谈谈我的" class="headerlink" title="4. 谈谈我的"></a>4. 谈谈我的</h4><p>2019年暑假开始申请服务器，注册域名备案，搭建博客，捣鼓一些有趣的项目。开学后因为客观原因就一直闲置，也没写几篇技术文章。转眼间就是2020年了，突如其来的假期让我闲下来打理博客，今年我想继续学习，开源有趣或有用的项目，更加的融入一些社区网站，我会不定期地发表文章分享我的进度。</p>
     </div>
 
     
     
     
         
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>yonatan</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yonatan.cn/post/6f68870a/" title="Coding Pages申请SSL证书失败踩坑">http://yonatan.cn/post/6f68870a/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
       
 
       <footer class="post-footer">
@@ -364,29 +386,13 @@
           
           <div class="post-tags">
             
-              <a href="/tags/Https/" rel="tag"># Https</a>
+              <a href="/tags/https/" rel="tag"># https</a>
             
           </div>
         
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/post/4a17b156/" rel="next" title="Hello World">
-                  <i class="fa fa-chevron-left"></i> Hello World
-                </a>
-              
-            </div>
-
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-            </div>
-          </div>
-        
       </footer>
     
   </div>
@@ -434,12 +440,14 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#起因：Hexo博客双线部署"><span class="nav-number">1.</span> <span class="nav-text">起因：Hexo博客双线部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-问题"><span class="nav-number">2.</span> <span class="nav-text">1. 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-踩坑"><span class="nav-number">3.</span> <span class="nav-text">2. 踩坑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-解决方法"><span class="nav-number">4.</span> <span class="nav-text">3. 解决方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-谈谈我的"><span class="nav-number">5.</span> <span class="nav-text">4. 谈谈我的</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Yonatan</p>
+  <p class="site-author-name" itemprop="name">yonatan</p>
   <div class="site-description" itemprop="description">Later equals never</div>
 </div>
   <nav class="site-state motion-element">
@@ -447,7 +455,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -483,6 +491,8 @@
         
           
         
+          
+        
         <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">标签</span>
         </a>
@@ -502,6 +512,11 @@
       </span>
     
   </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
 
 
 
@@ -517,11 +532,11 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Yonatan</span>
+  <span class="author" itemprop="copyrightHolder">yonatan</span>
 </div>
 
         
@@ -603,7 +618,7 @@
 <script src="https://static.kodcloud.com/index/js/lib/bannerLine/EasePack.min.js" type="text/javascript"></script>
 <script src="/js/headstars/common.js"></script>
   <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="/js/valine/Valine.min.js"></script>
+  <script src="/js/_custom/Valine.min.js"></script>
   
   <script type="text/javascript">
     new Valine({
