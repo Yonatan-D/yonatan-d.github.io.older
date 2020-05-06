@@ -54,17 +54,18 @@
   };
 </script>
 
-  <meta name="description" content="Later equals never">
+  <meta name="description" content="网上收集的常见时间日期转换方法，持续更新。推荐以原型继承的方式使用。 12345// funcName 方法名称Date.prototype.funcName = function()&amp;#123;&amp;#125;;// 使用示例const nowDate = new Date();nowDate.funcName();">
+<meta name="keywords" content="JS,Date">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2个常用的JS转换时间日期">
 <meta property="og:url" content="http://yonatan.cn/post/75db9953/index.html">
 <meta property="og:site_name" content="Yonatan">
-<meta property="og:description" content="Later equals never">
+<meta property="og:description" content="网上收集的常见时间日期转换方法，持续更新。推荐以原型继承的方式使用。 12345// funcName 方法名称Date.prototype.funcName = function()&amp;#123;&amp;#125;;// 使用示例const nowDate = new Date();nowDate.funcName();">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-06T04:55:33.179Z">
+<meta property="og:updated_time" content="2020-05-06T09:32:16.854Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2个常用的JS转换时间日期">
-<meta name="twitter:description" content="Later equals never">
+<meta name="twitter:description" content="网上收集的常见时间日期转换方法，持续更新。推荐以原型继承的方式使用。 12345// funcName 方法名称Date.prototype.funcName = function()&amp;#123;&amp;#125;;// 使用示例const nowDate = new Date();nowDate.funcName();">
   <link rel="canonical" href="http://yonatan.cn/post/75db9953/">
 
 
@@ -258,7 +259,24 @@
                 
               
 
-              <time title="创建时间：2020-05-06 12:55:33" itemprop="dateCreated datePublished" datetime="2020-05-06T12:55:33+08:00">2020-05-06</time>
+              <time title="创建时间：2020-05-06 12:55:33 / 修改时间：17:32:16" itemprop="dateCreated datePublished" datetime="2020-05-06T12:55:33+08:00">2020-05-06</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/源码分享/" itemprop="url" rel="index"><span itemprop="name">源码分享</span></a></span>
+
+                
+                
+              
             </span>
           
 
@@ -295,7 +313,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>网上收集的常见时间日期转换方法，持续更新。推荐以原型继承的方式使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// funcName 方法名称</span></span><br><span class="line"><span class="built_in">Date</span>.prototype.funcName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="comment">// 使用示例</span></span><br><span class="line"><span class="keyword">const</span> nowDate = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">nowDate.funcName();</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+
+
+<h4 id="1-日期格式化"><a href="#1-日期格式化" class="headerlink" title="1. 日期格式化"></a>1. 日期格式化</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">fmt</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> o = &#123;</span><br><span class="line">      <span class="string">"M+"</span> : <span class="keyword">this</span>.getMonth()+<span class="number">1</span>,                 <span class="comment">//月份</span></span><br><span class="line">      <span class="string">"d+"</span> : <span class="keyword">this</span>.getDate(),                    <span class="comment">//日</span></span><br><span class="line">      <span class="string">"h+"</span> : <span class="keyword">this</span>.getHours(),                   <span class="comment">//小时</span></span><br><span class="line">      <span class="string">"m+"</span> : <span class="keyword">this</span>.getMinutes(),                 <span class="comment">//分</span></span><br><span class="line">      <span class="string">"s+"</span> : <span class="keyword">this</span>.getSeconds(),                 <span class="comment">//秒</span></span><br><span class="line">      <span class="string">"q+"</span> : <span class="built_in">Math</span>.floor((<span class="keyword">this</span>.getMonth()+<span class="number">3</span>)/<span class="number">3</span>), <span class="comment">//季度</span></span><br><span class="line">      <span class="string">"S"</span>  : <span class="keyword">this</span>.getMilliseconds()             <span class="comment">//毫秒</span></span><br><span class="line">    &#125;;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span>(<span class="regexp">/(y+)/</span>.test(fmt))&#123;</span><br><span class="line">      fmt=fmt.replace(<span class="built_in">RegExp</span>.$<span class="number">1</span>, (<span class="keyword">this</span>.getFullYear()+<span class="string">""</span>).substr(<span class="number">4</span> - <span class="built_in">RegExp</span>.$<span class="number">1.</span>length));</span><br><span class="line">    &#125;</span><br><span class="line">          </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> o)&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"("</span>+ k +<span class="string">")"</span>).test(fmt))&#123;</span><br><span class="line">        fmt = fmt.replace(</span><br><span class="line">          <span class="built_in">RegExp</span>.$<span class="number">1</span>, (<span class="built_in">RegExp</span>.$<span class="number">1.</span>length==<span class="number">1</span>) ? (o[k]) : ((<span class="string">"00"</span>+ o[k]).substr((<span class="string">""</span>+ o[k]).length)));  </span><br><span class="line">      &#125;       </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> fmt;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-计算间隔时间"><a href="#2-计算间隔时间" class="headerlink" title="2. 计算间隔时间"></a>2. 计算间隔时间</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">dt</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> minute = <span class="number">1000</span> * <span class="number">60</span>;      <span class="comment">//把分，时，天，周，半个月，一个月用毫秒表示</span></span><br><span class="line">    <span class="keyword">var</span> hour = minute * <span class="number">60</span>;</span><br><span class="line">    <span class="keyword">var</span> day = hour * <span class="number">24</span>;</span><br><span class="line">    <span class="keyword">var</span> week = day * <span class="number">7</span>;</span><br><span class="line">    <span class="comment">// var halfamonth = day * 15;</span></span><br><span class="line">    <span class="keyword">var</span> month = day * <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();   <span class="comment">//获取当前时间毫秒</span></span><br><span class="line">    <span class="keyword">var</span> diffValue = now - dt;<span class="comment">//时间差</span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span>(diffValue &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> minC = diffValue/minute;  <span class="comment">//计算时间差的分，时，天，周，月</span></span><br><span class="line">    <span class="keyword">var</span> hourC = diffValue/hour;</span><br><span class="line">    <span class="keyword">var</span> dayC = diffValue/day;</span><br><span class="line">    <span class="keyword">var</span> weekC = diffValue/week;</span><br><span class="line">    <span class="keyword">var</span> monthC = diffValue/month;</span><br><span class="line">    <span class="keyword">if</span>(monthC &gt;= <span class="number">1</span> &amp;&amp; monthC &lt;= <span class="number">3</span>)&#123;</span><br><span class="line">      dt = <span class="string">" "</span> + <span class="built_in">parseInt</span>(monthC) + <span class="string">"月前"</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(weekC &gt;= <span class="number">1</span> &amp;&amp; weekC &lt;= <span class="number">3</span>)&#123;</span><br><span class="line">      dt = <span class="string">" "</span> + <span class="built_in">parseInt</span>(weekC) + <span class="string">"周前"</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(dayC &gt;= <span class="number">1</span> &amp;&amp; dayC &lt;= <span class="number">6</span>)&#123;</span><br><span class="line">      dt = <span class="string">" "</span> + <span class="built_in">parseInt</span>(dayC) + <span class="string">"天前"</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(hourC &gt;= <span class="number">1</span> &amp;&amp; hourC &lt;= <span class="number">23</span>)&#123;</span><br><span class="line">      dt = <span class="string">" "</span> + <span class="built_in">parseInt</span>(hourC) + <span class="string">"小时前"</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(minC &gt;= <span class="number">1</span> &amp;&amp; minC &lt;= <span class="number">59</span>)&#123;</span><br><span class="line">      dt =<span class="string">" "</span> + <span class="built_in">parseInt</span>(minC) + <span class="string">"分钟前"</span></span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(diffValue &gt;= <span class="number">0</span> &amp;&amp; diffValue &lt;= minute)&#123;</span><br><span class="line">      dt = <span class="string">"刚刚"</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> datetime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">        datetime.setTime(dt);</span><br><span class="line">        <span class="keyword">var</span> Nyear = datetime.getFullYear();</span><br><span class="line">        <span class="keyword">var</span> Nmonth = datetime.getMonth() + <span class="number">1</span> &lt; <span class="number">10</span> ? <span class="string">"0"</span> + (datetime.getMonth() + <span class="number">1</span>) : datetime.getMonth() + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">var</span> Ndate = datetime.getDate() &lt; <span class="number">10</span> ? <span class="string">"0"</span> + datetime.getDate() : datetime.getDate();</span><br><span class="line">        dt = Nyear + <span class="string">"-"</span> + Nmonth + <span class="string">"-"</span> + Ndate</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dt;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -321,6 +350,17 @@
       
 
       <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/JS/" rel="tag"># JS</a>
+            
+              <a href="/tags/Date/" rel="tag"># Date</a>
+            
+          </div>
+        
 
         
 
@@ -371,6 +411,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-日期格式化"><span class="nav-number">1.</span> <span class="nav-text">1. 日期格式化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-计算间隔时间"><span class="nav-number">2.</span> <span class="nav-text">2. 计算间隔时间</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -386,6 +428,42 @@
         
           <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
         </a>
       </div>
     
